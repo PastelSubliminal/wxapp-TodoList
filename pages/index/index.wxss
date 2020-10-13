@@ -1,0 +1,36 @@
+/**index.wxss**/
+.page-body {
+  width: 100%;
+}
+.task-input {
+  width: 100%;
+}
+.add-tasks {
+  height: 50rpx;
+  margin: 20rpx 0;
+}
+.task-item {
+  margin-bottom: 13rpx;
+}
+.finished {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20rpx 0;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 5rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}

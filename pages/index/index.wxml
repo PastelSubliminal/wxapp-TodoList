@@ -1,0 +1,55 @@
+<!--index.wxml-->
+<mp-toptips msg="{{msg}}" type="{{msgType}}" show="{{msg}}"></mp-toptips>
+
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+
+  <view class="page-body">
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input add-tasks">
+          <mp-icon icon="add" color="black" size="{{18}}"></mp-icon>
+          <input class="weui-input task-input" focus bindconfirm="addTask" placeholder="回车新增待办事项" value="{{newTaskContent}}"/>
+        </view>
+      </view>
+  
+      <mp-cells title="待办事项">
+        <mp-checkbox-group prop="checkbox" multi="{{true}}">
+          <view wx:for="{{tasks}}" wx:key="id" wx:if="{{item.isFinished === false}}">
+          <mp-slideview buttons="{{slideButtons}}" bindbuttontap="deleteTask" data-index="{{index}}">
+            <mp-checkbox label="{{item.content}}" value="{{item.id}}" checked="{{item.isFinished}}" class="{{item.isFinished ? 'finished' : ''}}" data-index="{{index}}" data-status="{{item.isFinished}}" bindtap="toggleFinishStatus" bindlongpress="showActionSheet"></mp-checkbox>
+          </mp-slideview>
+          </view>
+        </mp-checkbox-group>
+      </mp-cells>
+      
+      <mp-cells title="完成事项">
+        <mp-checkbox-group prop="checkbox" multi="{{true}}">
+          <view wx:for="{{tasks}}" wx:key="id" wx:if="{{item.isFinished === true}}">
+          <mp-slideview buttons="{{slideButtons}}" bindbuttontap="deleteTask" data-index="{{index}}">
+            <mp-checkbox label="{{item.content}}" value="{{item.id}}" checked="{{item.isFinished}}" class="{{item.isFinished ? 'finished' : ''}}" data-index="{{index}}" data-status="{{item.isFinished}}" bindtap="toggleFinishStatus" bindlongpress="showActionSheet"></mp-checkbox>
+          </mp-slideview>
+          </view>
+        </mp-checkbox-group>
+      </mp-cells>
+
+      <mp-actionSheet bindactiontap="actionSheet" data-index="{{actionSheet.currentIndex}}" show="{{actionSheet.showActionSheet}}" actions="{{actionSheet.actionGroups}}" title="{{actionSheet.title}}">
+      </mp-actionSheet>
+
+      <!-- <view wx:for="{{tasks}}" wx:key="id" class="task-item">
+        <label>
+          <checkbox value="{{item.id}}" checked="{{item.isFinished}}" bindtap="toggleFinishStatus" data-index="{{index}}"></checkbox>
+          <text class="{{item.isFinished ? 'finished' : ''}}">{{item.content}}</text>
+        </label>
+        <mp-icon icon="close2" color="gray" size="{{20}}" bindtap="deleteTask" data-index="{{index}}"></mp-icon>
+      </view> -->
+    </view>
+  </view>
+</view>
